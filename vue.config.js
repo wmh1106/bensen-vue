@@ -8,7 +8,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://test.raykart.com',
+        target: 'http://192.168.0.30:8088',
         changeOrigin: true
       }
     }
