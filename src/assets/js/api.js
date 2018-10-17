@@ -1,3 +1,4 @@
-export default {
-  url: 'https://test.raykart.com/api'
+const host = 'http://192.168.0.30:8088'
+export {
+  host
 }

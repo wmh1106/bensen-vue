@@ -13,6 +13,12 @@
 import axios from "axios";
 import { getHrefData } from "@/assets/js/utility.js";
 
+import defaultImg from  '@/assets/image/default.png'
+import {host} from '@/assets/js/api.js'
+
+// eslint-disable-next-line
+console.log(host)
+
 export default {
   data() {
     return {
@@ -24,7 +30,7 @@ export default {
     const hrefData = getHrefData();
     if (hrefData && hrefData.id) {
       axios
-        .get("/api/news/" + hrefData.id)
+        .get(host+"/api/news/" + hrefData.id)
         .then(res => {
           _this.content = res.data.data;
           return res.data.data.content;
@@ -35,15 +41,14 @@ export default {
             let imgList = contentREF.querySelectorAll("img");
             Array.from(imgList).forEach(item => {
               item.onerror = function() {
-                console.log(1);
-                this.src =
-                  "https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwj9tZHlh4jeAhXlh1QKHVVmDb8QjRx6BAgBEAU&url=https%3A%2F%2Fbaike.baidu.com%2Fitem%2F%25E5%259B%25BE%25E7%2589%2587&psig=AOvVaw0yULt2G2Y4z3h4SnlwyltI&ust=1539679644185261";
+                this.src = defaultImg;
               };
             });
           }
         });
     } else {
-      console.error("未获取到 id");
+      // eslint-disable-next-line
+      console.log("未获取到 id");
     }
   }
 };

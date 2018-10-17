@@ -1,4 +1,4 @@
-// 多页
+// 多页配置
 const fs = require('fs')
 const glob = require('glob')
 
