@@ -14,7 +14,7 @@ function getHrefData () {
   return obj
 }
 
-/* 这段代码是固定的，必须要放到js中 */
+/* 与 ios 交互用的 这段代码是固定的，必须要放到js中 */
 
 function setupWebViewJavascriptBridge (callback) {
   if (window.WebViewJavascriptBridge) { return callback(window.WebViewJavascriptBridge) }
@@ -32,8 +32,16 @@ function log (res) {
   console.log(res)
 }
 
+// 倒计时
+function countDown(n){
+  let num = parseInt(n) - 1
+  return num <= 0 ? 0 : num
+}
+
+
 export {
   getHrefData,
   setupWebViewJavascriptBridge,
-  log
+  log,
+  countDown
 }
