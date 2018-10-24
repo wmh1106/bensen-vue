@@ -13,9 +13,6 @@
   </div>
 </template>
 
-<script>
-</script>
-
 <style lang="scss">
 @import "~@/assets/style/varibles.scss";
 .aboutUs {

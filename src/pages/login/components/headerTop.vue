@@ -33,8 +33,13 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/style/varibles.scss";
 .headerTop {
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 100%;
   height: px(88);
+  background: #141414;
   .title {
     text-align: center;
     line-height: px(88);

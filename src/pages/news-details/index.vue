@@ -6,6 +6,13 @@
       <img :src="content.image" alt="">
     </div> -->
     <div class="content" ref="content" v-html="content.content"></div>
+
+    <div class="bottomText">
+      <p>- 超级跑车寄售服务 -</p>
+      <p>- 超级跑车体验服务 -</p>
+      <p>- 超级跑车场地供应 -</p>
+      <p class="phone">详情资讯4006-458-911</p>
+    </div>
   </div>
 </template>
 
@@ -72,16 +79,31 @@ export default {
   }
   .time {
     padding-top: px(66);
-    font-size: px(24);
+    font-size: px(30);
     color: #666;
     text-align: center;
   }
   .content {
     color: #999;
+    span,p{
+      font-size: px(32) !important;
+    }
     img {
       display: block;
       width: 100% !important;
       margin: px(10) 0;
+    }
+  }
+  .bottomText{
+    text-align: center;
+    font-size: px(30);
+    color: #fff;
+    padding: px(100) 0;
+    p{
+      padding-bottom: px(10)
+    }
+    .phone{
+      padding-top: px(40);
     }
   }
 }
