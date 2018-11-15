@@ -16,18 +16,19 @@
 <style lang="scss">
 @import "~@/assets/style/varibles.scss";
 .aboutUs {
-  font-size: px(26);
   line-height: px(30);
   color: #c7c7c7;
   background: #141414;
   & > img {
     width: 100%;
-    margin-bottom: px(20) ;
+    margin-bottom: px(20);
   }
   & > p {
     padding-left: px(30);
     padding-right: px(30);
     padding-bottom: px(30);
+    font-size: px(30);
+    line-height: px(40);
   }
 }
 </style>
