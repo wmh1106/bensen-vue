@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <img class="topImage" :src="content.image" alt="">
     <h2 class="title">{{content.title}}</h2>
     <p class="time">{{content.created_at}}</p>
     <!-- <div>
@@ -20,11 +21,11 @@
 import axios from "axios";
 import { getHrefData } from "@/assets/js/utility.js";
 
-import defaultImg from  '@/assets/image/default.png'
-import {host} from '@/assets/js/api.js'
+import defaultImg from "@/assets/image/default.png";
+import { host } from "@/assets/js/api.js";
 
 // eslint-disable-next-line
-console.log(host)
+console.log(host);
 
 export default {
   data() {
@@ -37,9 +38,10 @@ export default {
     const hrefData = getHrefData();
     if (hrefData && hrefData.id) {
       axios
-        .get(host+"/api/news/" + hrefData.id)
+        .get(host + "/api/news/" + hrefData.id)
         .then(res => {
           _this.content = res.data.data;
+          console.log(res.data.data)
           return res.data.data.content;
         })
         .then(res => {
@@ -66,9 +68,10 @@ export default {
 .main {
   width: 100%;
   min-height: 100vh;
-  padding-left: px(30);
-  padding-right: px(30);
   background: #141414;
+  .topImage{
+    width: 100%;
+  }
   .title {
     width: 100%;
     font-size: px(40);
@@ -76,6 +79,8 @@ export default {
     padding-top: px(70);
     line-height: px(66);
     text-align: center;
+    padding-left: px(30);
+    padding-right: px(30);
   }
   .time {
     padding-top: px(66);
@@ -85,7 +90,8 @@ export default {
   }
   .content {
     color: #999;
-    span,p{
+    span,
+    p {
       font-size: px(32) !important;
     }
     img {
@@ -94,15 +100,15 @@ export default {
       margin: px(10) 0;
     }
   }
-  .bottomText{
+  .bottomText {
     text-align: center;
     font-size: px(30);
     color: #fff;
     padding: px(100) 0;
-    p{
-      padding-bottom: px(10)
+    p {
+      padding-bottom: px(10);
     }
-    .phone{
+    .phone {
       padding-top: px(40);
     }
   }

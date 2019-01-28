@@ -11,11 +11,15 @@
       <div class="phone">电话咨询</div>
       <div class="reserve">立即预订</div>
     </div> -->
+    <div class="button-box">
+      <!-- <div class="phone">电话咨询</div> -->
+      <div href="javascript:;" @click="down" class="reserve">立即下载本森APP</div>
+    </div>
   </div>
 </template>
 <script>
-
-import axios from 'axios';
+import axios from "axios";
+import { host } from "@/assets/js/api.js";
 import { getHrefData } from "@/assets/js/utility.js";
 
 import NavBar from "./components/nav-bar";
@@ -41,14 +45,13 @@ export default {
     Info
   },
   created() {
-    const hrefData = getHrefData()
-    
+    const hrefData = getHrefData();
+
     axios
-      .get("/api/cars/"+hrefData.id)
+      .get(host + "/api/cars/" + hrefData.id)
       .then(res => {
         const { status, data } = res.data;
         if (status === "success") {
-          
           this.swiper = data.images;
           this.explain = data.explain;
           this.memberTable = [
@@ -101,6 +104,22 @@ export default {
       .catch(err => {
         console.error(err);
       });
+  },
+  methods: {
+    down() {
+      let u = navigator.userAgent;
+        // app = navigator.appVersion;
+      let isAndroid = u.indexOf("Android") > -1 || u.indexOf("Linux") > -1; //g
+      let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if (isAndroid) {
+        location.href =
+          "http://a.app.qq.com/o/simple.jsp?pkgname=com.mec.benson";
+      }
+      if (isIOS) {
+        location.href =
+          "https://itunes.apple.com/cn/app/ben-sen-chao-pao/id1176038542?mt=8";
+      }
+    }
   }
 };
 </script>

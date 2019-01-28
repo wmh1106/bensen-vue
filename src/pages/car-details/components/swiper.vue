@@ -35,27 +35,27 @@ export default {
     }
   },
   methods: {
-    initScroll () {
-      this.$refs.swiper.style.width = this.slist.length + '00%'
+      initScroll: function () {
+          this.$refs.swiper.style.width = this.slist.length + '00%'
 
-      this.$nextTick(() => {
-        if (!this.scroll) {
-          this.scroll = new BScroll(this.$refs['swiper-wrap'], {
-            scrollX: true,
-            scrollY: false,
-            snap: {
-              wheel: true,
-              threshold: 0.5
-            }
+          this.$nextTick(() => {
+              if (!this.scroll) {
+                  this.scroll = new BScroll(this.$refs['swiper-wrap'], {
+                      scrollX: true,
+                      scrollY: false,
+                      snap: {
+                          wheel: true,
+                          threshold: 0.5
+                      }
+                  })
+                  this.scroll.on('scrollEnd', () => {
+                      this.currentPageIndex = this.scroll.getCurrentPage().pageX
+                  })
+              } else {
+                  this.scroll.refresh()
+              }
           })
-          this.scroll.on('scrollEnd', () => {
-            this.currentPageIndex = this.scroll.getCurrentPage().pageX
-          })
-        } else {
-          this.scroll.refresh()
-        }
-      })
-    }
+      }
   }
 }
 </script>
