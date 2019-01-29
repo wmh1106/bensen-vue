@@ -2,7 +2,7 @@ const pages = require('./utils/vue_multipage.js')
 const px2vw = require('postcss-px-to-viewport')
 
 module.exports = {
-  baseUrl: process.env.baseUrl,
+  publicPath: process.env.baseUrl,
   pages,
   outputDir: process.env.outputDir,
   devServer: {

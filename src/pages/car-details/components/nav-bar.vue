@@ -32,7 +32,7 @@ export default {
       }).then(res => {
         const { status, data } = res.data
         if (status === 'success') {
-          console.log(data)
+          // console.log(data)
         }
       })
     }

@@ -75,10 +75,10 @@ export default {
           telephone: this.phone
         })
         .then(res => {
-          console.log(res);
+          // console.log(res);
         })
         .catch(function(error) {
-          console.log(error);
+          // console.log(error);
         });
     },
     bindPhoneCode(event) {
