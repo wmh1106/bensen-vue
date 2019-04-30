@@ -1,18 +1,13 @@
 <template>
   <div class="main">
     <img class="topImage" :src="content.image" alt="" v-if="share">
+    <img class="topImage" :src="content.image" alt="" v-if="android">
     <h2 class="title">{{content.title}}</h2>
     <p class="time">{{content.created_at}}</p>
-    <!-- <div>
-      <img :src="content.image" alt="">
-    </div> -->
     <div class="content" ref="content" v-html="content.content"></div>
 
-    <div class="bottomText">
-      <p>- 超级跑车寄售服务 -</p>
-      <p>- 超级跑车体验服务 -</p>
-      <p>- 超级跑车场地供应 -</p>
-      <p class="phone">详情资讯4006-458-911</p>
+    <div class="button-box" v-if="share">
+      <div href="javascript:;" @click="down" class="reserve">立即下载本森APP</div>
     </div>
   </div>
 </template>
@@ -24,21 +19,38 @@
     import defaultImg from "@/assets/image/default.png";
     import { host } from "@/assets/js/api.js";
 
-    // eslint-disable-next-line
-    // console.log(host);
-
     export default {
         data() {
             return {
                 content: {},
-                share:false
+                share:false,
+                android: false
             };
+        },
+        methods: {
+            down() {
+                let u = navigator.userAgent;
+                // app = navigator.appVersion;
+                let isAndroid = u.indexOf("Android") > -1 || u.indexOf("Linux") > -1; //g
+                let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                if (isAndroid) {
+                    location.href =
+                        "http://a.app.qq.com/o/simple.jsp?pkgname=com.mec.benson";
+                }
+                if (isIOS) {
+                    location.href =
+                        "https://itunes.apple.com/cn/app/ben-sen-chao-pao/id1176038542?mt=8";
+                }
+            }
         },
         created() {
             const _this = this;
             const hrefData = getHrefData();
             if(hrefData.isShare){
               this.share = true
+            }
+            if(hrefData.isAndroid){
+                this.android = true
             }
             if (hrefData && hrefData.id) {
                 axios
@@ -92,6 +104,7 @@
       text-align: center;
     }
     .content {
+      padding-bottom: px(100);
       color: #999;
       span,
       p {
@@ -103,17 +116,24 @@
         margin: px(10) 0;
       }
     }
-    .bottomText {
-      text-align: center;
-      font-size: px(30);
-      color: #fff;
-      padding: px(100) 0;
-      p {
-        padding-bottom: px(10);
-      }
-      .phone {
-        padding-top: px(40);
-      }
+  }
+
+  .button-box {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: px(100);
+    display: flex;
+
+    .reserve {
+      flex: 2;
+      font-size: px(32);
+      color: #d9d9d9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #a98054;
     }
   }
 </style>

@@ -1,34 +1,70 @@
 <template>
-  <div class="aboutUs">
-    <img src="./image/img1.png" alt="">
-    <p>无论如何，对于超跑而言，它们理当是梦想与传奇的延伸，是极致化追求的宠儿。超跑呼啸而过，留下一串艳羡和流光溢彩。当动辄千万、性能卓越的钢铁机械出现在面前时，没有人可以否认它拥有聚焦所有目光的力量。</p>
-    <p>毋庸置疑，对于超跑俱乐部而言，它们如同是一个个潜在都市里的“猎人”，它们是网络城市里最先锋又最神秘的“高富帅”。</p>
-    <p>不得不承认，超跑俱乐部之路是一条光芒万丈的路，速度与激情，青春与梦想交织，曾吸引一代代年轻领袖前仆后继。当然，这也是一条孤独的路，喧嚣后的安静，寂寞的跑道，十年如初的匠心坚守。</p>
-    <p>Benson supercar Club本森超跑俱乐部，中国超跑俱乐部十年坚守者，秉承超跑文化推动者的匠心，心怀对超跑的独特情怀，致力于做全国最有情怀的豪车体验中心。</p>
-    <p>2008年，“本森”创办，开行业先河，以“国内首家最专业的超跑玩家俱乐部”的身份标识至今屹立不倒。俱乐部专门为有超跑梦想的您而打造，让您可以尽情感受超级跑车带给你的驾控激情以及会员专属增值服务。“本森”的服务范围主要涉及超级跑车寄售服务、超级跑车体验业务、品牌发布场地供应三大领域。</p>
-    <p>经过十年的稳健、快速发展，“本森”已覆盖上海、北京、广州、深圳、成都、重庆、三亚等城市。其中，在上海、北京各拥有极具工厂风格的独栋会所，分别坐落于上海地标外滩区域内的黄浦区中山南路1029号幸福码头时尚创意园区和充满艺术气息的北京798艺术区，同时都的俱乐部也即将筹建完成。</p>
-    <p>俱乐部自有600多辆各种品牌系列的超级跑车、豪车，包括兰博基尼、法拉利、迈凯伦等超级跑车、劳斯斯、宾利、奔驰、路虎等豪车系，以及玛莎拉蒂、保时捷、阿斯頓马丁为主的跑车等。另外，托管车辆已达到15万辆之多。为了完成“随时随地，驾驭所享”的玩车理念，不久的将来，本森超跑俱乐部的服务将会遍及国内所有省会以及热门城市。</p>
-    <p>顶级超跑是科技、文化、艺术、工业的结合，代表的不只是财富，而是梦想。人人都有梦想，“本森”尊重每个人的梦想，尊重每一个爱车的人，也愿意成为梦想的助力者。</p>
-    <!--<img src="./image/img2.png" alt="">-->
-  </div>
+    <div v-if="bgImage" class="page">
+        <img class="img" :src="bgImage" alt="" v-if="share">
+        <div class="title-wrap">
+            <wmh-title :zh="title.zh" :en="title.en" ></wmh-title>
+        </div>
+        <div class="content">
+            <p v-html="content"></p>
+        </div>
+    </div>
 </template>
+<script>
 
+    import wmhTitle from '@/assets/components/wmh-title.vue'
+    import { getHrefData } from "@/assets/js/utility.js";
+    import axios from 'axios'
+    import {host} from "@/assets/js/api.js"
+    export default {
+        components: {
+            wmhTitle
+        },
+        data () {
+            return {
+                bgImage: '',
+                title: {},
+                content: '',
+                share:false
+            }
+        },
+        created () {
+            const hrefData = getHrefData();
+            if(hrefData.isShare){
+                this.share = true
+            }
+            axios.get(host + '/api/companys/' + 1).then((res) => {
+                const { status, data } = res.data
+                if (status === 'success') {
+                    this.title.zh = data.about_name_zh
+                    this.title.en = data.about_name_en
+                    this.bgImage = data.image
+
+                    this.content = data.company.detail.introduce.replace(/\n/g, '<br />')
+                }
+            })
+        }
+    }
+</script>
 <style lang="scss">
-@import "~@/assets/style/varibles.scss";
-.aboutUs {
-  line-height: px(30);
-  color: #c7c7c7;
-  background: #141414;
-  & > img {
-    width: 100%;
-    margin-bottom: px(20);
-  }
-  & > p {
-    padding-left: px(30);
-    padding-right: px(30);
-    padding-bottom: px(30);
-    font-size: px(30);
-    line-height: px(40);
-  }
-}
+    @function px( $px) {
+        @return $px*2*2/100+rem;
+    }
+    .page{
+        background: #202020;
+    }
+    .img {
+        width: 100%;
+    }
+    .title-wrap{
+        padding: px(20) px(16) 0;
+    }
+    .content {
+        color: #666;
+        padding: 0 px(16) 0;
+        p {
+            font-size: px(16);
+            line-height: px(24);
+            padding-bottom: 1em;
+        }
+    }
 </style>

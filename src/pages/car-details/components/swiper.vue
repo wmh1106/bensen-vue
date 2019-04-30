@@ -10,10 +10,8 @@
         ></li>
       </ul>
     </div>
-    <ul class="pagination">
-      <li v-for="(item,index) in slist " :key="index" :class="{active:index ===currentPageIndex}">
-      </li>
-    </ul>
+    <div class="number">{{currentPageIndex+1}}/{{slist.length}}</div>
+    
   </div>
 </template>
 <script>
@@ -43,11 +41,14 @@ export default {
                   this.scroll = new BScroll(this.$refs['swiper-wrap'], {
                       scrollX: true,
                       scrollY: false,
-                      snap: {
-                          wheel: true,
-                          threshold: 0.5
-                      }
+                      momentum: false, // 当快速滑动时是否开启滑动惯性
+                      snap: { // 为slider组件使用
+                          loop: this.loop, // 是否无缝循环轮播
+                          threshold: 0.3, // 用手指滑动时页面可切换的阀值，大于这个阀值时可以滑动到下一页
+                          speed: 400 // 轮播图切换的动画时间
+                      },
                   })
+
                   this.scroll.on('scrollEnd', () => {
                       this.currentPageIndex = this.scroll.getCurrentPage().pageX
                   })
@@ -60,19 +61,21 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "~@/assets/style/varibles.scss";
+  @function px( $px) {
+    @return $px*2*2/100+rem;
+  }
 .swiper-box {
   position: relative;
   width: 100%;
-  height: px(204 * 2);
+  height: px(204 );
   overflow: hidden;
 
   .swiper-wrap {
     width: 100%;
-    height: px(204 * 2);
+    height: px(204 );
     overflow: hidden;
     .swiper {
-      height: px(204 * 2);
+      height: px(204 );
       overflow: hidden;
       display: flex;
     }
@@ -87,28 +90,16 @@ export default {
       background-size: 100% auto;
     }
   }
-
-  .pagination {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: px(25 * 2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    li {
-      width: px(8 * 2);
-      height: px(8 * 2);
-      margin: 0 px(5 * 2);
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-
-      &.active {
-        background: rgba(255, 255, 255, 1);
-      }
-    }
-  }
 }
 
+.number{
+  position: absolute;
+  right: 0; bottom: 0;
+  color: #fff;
+  background: rgba(0,0,0,0.5);
+  padding: px(3) px(10);
+  border-radius: px(10);
+  font-size: px(12);
+  margin:px(5);
+}
 </style>

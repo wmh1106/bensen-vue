@@ -29,7 +29,7 @@ function setupWebViewJavascriptBridge (callback) {
 
 function log (res) {
   /* eslint-disable no-console */
-  // console.log(res)
+  console.log(res)
 }
 
 // 倒计时
